@@ -11,8 +11,8 @@ const Sidebar: FC<SidebarProps> = async ({ projectId }) => {
   console.log({ projectId });
 
   return (
-    <div className="w-1/5 p-4 divide-y space-y-8">
-      <div className="space-y-4 px-2">
+    <div className="w-1/5 py-4 px-6 divide-y space-y-8">
+      <div className="space-y-4">
         {projects.map((p) => (
           <Link
             href={p.id}
@@ -25,7 +25,7 @@ const Sidebar: FC<SidebarProps> = async ({ projectId }) => {
           </Link>
         ))}
       </div>
-      <button className="py-2 text-sm bg-blue-200 rounded-md text-blue-800 px-4 flex items-center justify-center">
+      <button className="py-2 text-sm border-t border-zinc-400 w-full text-blue-800 px-4 flex items-center justify-center duration-200 hover:border-blue-100 hover:rounded-md hover:bg-blue-100">
         + Add New Project
       </button>
       {/* <ProjectInput /> */}
