@@ -1,4 +1,3 @@
-import { type Status } from ".prisma/client/index";
 import prisma from "@/utils/prisma";
 import { type FC } from "react";
 
@@ -16,7 +15,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 };
 
 interface ColumnProps {
-  status: Status;
+  status: "none" | "Progress" | "Review" | "Completed";
   projectId: string;
 }
 
