@@ -1,5 +1,5 @@
+import { type Status } from ".prisma/client/index";
 import prisma from "@/utils/prisma";
-import { Status } from "@prisma/client";
 import { type FC } from "react";
 
 const Page = ({ params }: { params: { id: string } }) => {
