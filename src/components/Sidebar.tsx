@@ -19,7 +19,7 @@ const Sidebar: FC<SidebarProps> = async ({ projectId }) => {
             key={p.id}
             className={`${
               projectId === p.id ? "bg-blue-100" : ""
-            } text-lg capitalize block px-6 py-2 rounded-md`}
+            } text-lg capitalize block px-6 py-2 rounded-md whitespace-nowrap`}
           >
             {p.name}
           </Link>
