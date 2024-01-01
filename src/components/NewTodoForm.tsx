@@ -168,9 +168,19 @@ const NewTodoForm: FC<NewTodoFormProps> = ({ className, projectId }) => {
 
             <div className="flex space-x-2 justify-end mt-2">
               <DialogClose>
-                <Button variant={"secondary"}>Cancel</Button>
+                <Button
+                  type="reset"
+                  variant={"secondary"}
+                  className="bg-blue-50 text-blue-700"
+                >
+                  Cancel
+                </Button>
               </DialogClose>
-              <Button type="submit" variant={"default"} className="space-x-2">
+              <Button
+                type="submit"
+                variant={"default"}
+                className="space-x-2 bg-blue-600 text-zinc-50 hover:bg-blue-700"
+              >
                 <span>Add</span>
                 {loading && (
                   <svg

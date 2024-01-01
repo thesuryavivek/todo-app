@@ -1,4 +1,5 @@
 import NewTodoForm from "@/components/NewTodoForm";
+import TodoView from "@/components/TodoView";
 import prisma from "@/utils/prisma";
 import { type FC } from "react";
 
@@ -52,7 +53,7 @@ const Column: FC<ColumnProps> = async ({ status, projectId }) => {
   });
 
   return (
-    <div className="w-1/4 py-6 space-y-2 px-4">
+    <div className="w-1/4 py-6 space-y-4 px-4">
       <span
         className={`${statusView.style} text-xs flex items-center w-max rounded-full px-4 py-2`}
       >
@@ -60,7 +61,7 @@ const Column: FC<ColumnProps> = async ({ status, projectId }) => {
         {statusView.text}
       </span>
       {todos.map((todo) => (
-        <div key={todo.id}>{todo.text}</div>
+        <TodoView key={todo.id} todo={todo} className={statusView.style} />
       ))}
 
       <NewTodoForm className={statusView.style} projectId={projectId} />
