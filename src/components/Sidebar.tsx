@@ -29,8 +29,6 @@ const Sidebar: FC<SidebarProps> = async ({ projectId }) => {
 
     const project = formData.get("new-project-name") as string;
 
-    console.log("server actions: ", project);
-
     const data = await prisma.project.create({
       data: {
         name: project,

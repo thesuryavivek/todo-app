@@ -1,3 +1,4 @@
+import NewTodoForm from "@/components/NewTodoForm";
 import prisma from "@/utils/prisma";
 import { type FC } from "react";
 
@@ -28,19 +29,19 @@ const Column: FC<ColumnProps> = async ({ status, projectId }) => {
   switch (status) {
     case "none":
       statusView.text = "To Do";
-      statusView.style = "bg-indigo-300 text-indigo-900";
+      statusView.style = "bg-indigo-200/50 text-indigo-900";
       break;
     case "Progress":
       statusView.text = "In Progress";
-      statusView.style = "bg-pink-300 text-pink-900";
+      statusView.style = "bg-pink-200/50 text-pink-900";
       break;
     case "Review":
       statusView.text = "In Review";
-      statusView.style = "bg-sky-300 text-sky-900";
+      statusView.style = "bg-sky-200/50 text-sky-900";
       break;
     case "Completed":
       statusView.text = "Completed";
-      statusView.style = "bg-green-300 text-green-900";
+      statusView.style = "bg-green-200/50 text-green-900";
       break;
   }
 
@@ -49,8 +50,6 @@ const Column: FC<ColumnProps> = async ({ status, projectId }) => {
       AND: [{ status }, { projectId }],
     },
   });
-
-  console.log({ statusView });
 
   return (
     <div className="w-1/4 py-6 space-y-2 px-4">
@@ -63,6 +62,8 @@ const Column: FC<ColumnProps> = async ({ status, projectId }) => {
       {todos.map((todo) => (
         <div key={todo.id}>{todo.text}</div>
       ))}
+
+      <NewTodoForm className={statusView.style} projectId={projectId} />
     </div>
   );
 };

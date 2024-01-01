@@ -7,8 +7,6 @@ interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({ children, params }) => {
-  console.log({ params });
-
   return (
     <div className="flex">
       <Sidebar projectId={params.id} />
