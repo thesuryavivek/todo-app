@@ -1,7 +1,8 @@
 const Nav = () => {
   return (
-    <header className="py-4 px-6 border-b border-zinc-300 shadow-md">
+    <header className="py-4 px-6 flex border-b border-zinc-300 shadow-md">
       <Logo />
+      <h1 className="text-xl">My Projects</h1>
     </header>
   );
 };
