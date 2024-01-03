@@ -22,7 +22,7 @@ interface TodoViewProps {
 
 const TodoView: FC<TodoViewProps> = ({ todo, className }) => {
   return (
-    <div key={todo.id} className="shadow-lg rounded-md p-4 space-y-4">
+    <div key={todo.id} className="shadow-custom rounded-md p-4 space-y-4">
       <h4>{todo.text}</h4>
       <div className="text-xs flex justify-between w-full">
         <div className="space-y-2">
