@@ -18,7 +18,7 @@ interface DatePickerProps {
   setDate: (date: Date | undefined) => void;
 }
 
-export const DatePickerDemo: FC<DatePickerProps> = ({ date, setDate }) => {
+export const DatePicker: FC<DatePickerProps> = ({ date, setDate }) => {
   return (
     <Popover>
       <PopoverTrigger asChild>

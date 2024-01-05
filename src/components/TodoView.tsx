@@ -6,12 +6,9 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { useTodoStore } from "@/utils/zustand";
 import type { Status } from "@prisma/client";
 import { FC, useState } from "react";
-import { DatePickerDemo } from "./Datepicker";
-import { Label } from "./ui/label";
+import TodoForm from "./TodoForm";
 
 const formatDate = (date: Date) => {
   const day = date.getDate().toString().padStart(2, "0");
@@ -33,13 +30,14 @@ interface TodoViewProps {
 }
 
 const TodoView: FC<TodoViewProps> = ({ todo, className }) => {
-  const [editedTodo, setEditedTodo] = useState(todo);
-  const { setStartDate, setEndDate } = useTodoStore();
+  // const [editedTodo, setEditedTodo] = useState(todo);
+  // const { setStartDate, setEndDate } = useTodoStore();
+  const [open, setOpen] = useState(false);
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="shadow-custom rounded-md w-full">
-        <div key={todo.id} className="p-4 space-y-4">
+        <div className="p-4 space-y-4">
           <h4 className="text-left capitalize">{todo.text}</h4>
           <div className="text-xs flex justify-between w-full">
             <div className="space-y-2">
@@ -59,37 +57,7 @@ const TodoView: FC<TodoViewProps> = ({ todo, className }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>Edit Task</DialogHeader>
-
-        <form>
-          <Label htmlFor="task-name">Name of the Task</Label>
-          <Input
-            id="task-name"
-            name="task-name"
-            type="text"
-            value={editedTodo.text}
-            onChange={(e) =>
-              setEditedTodo((prevTodo) => {
-                return {
-                  ...prevTodo,
-                  text: e.target.value,
-                };
-              })
-            }
-          />
-          <div className="flex gap-4">
-            <div className="space-y-2 w-1/2">
-              <Label>Start Date</Label>
-              <DatePickerDemo
-                date={editedTodo.startDate}
-                setDate={setStartDate}
-              />
-            </div>
-            <div className="space-y-2 w-1/2">
-              <Label>End Date</Label>
-              <DatePickerDemo date={editedTodo.endDate} setDate={setEndDate} />
-            </div>
-          </div>
-        </form>
+        <TodoForm projectId={todo.projectId} setOpen={setOpen} />
       </DialogContent>
     </Dialog>
   );

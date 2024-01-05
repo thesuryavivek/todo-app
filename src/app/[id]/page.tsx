@@ -1,4 +1,5 @@
-import NewTodoForm from "@/components/NewTodoForm";
+// import NewTodoForm from "@/components/NewTodoForm";
+import CreateTodo from "@/components/CreateTodo";
 import TodoView from "@/components/TodoView";
 import prisma from "@/utils/prisma";
 import { type FC } from "react";
@@ -64,7 +65,8 @@ const Column: FC<ColumnProps> = async ({ status, projectId }) => {
         <TodoView key={todo.id} todo={todo} className={statusView.style} />
       ))}
 
-      <NewTodoForm className={statusView.style} projectId={projectId} />
+      {/* <NewTodoForm className={statusView.style} projectId={projectId} /> */}
+      <CreateTodo className={statusView.style} projectId={projectId} />
     </div>
   );
 };
