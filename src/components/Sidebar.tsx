@@ -40,8 +40,8 @@ const Sidebar: FC<SidebarProps> = async ({ projectId }) => {
   }
 
   return (
-    <div className="w-1/5 py-4 px-6 divide-y space-y-8">
-      <div className="space-y-4">
+    <div className="w-1/5 py-4 px-6 h-[90vh] shadow-lg border-r">
+      <div className="space-y-4 max-h-[50vh] overflow-y-auto border-b pb-8">
         {projects.map((p) => (
           <Link
             href={p.id}
@@ -57,7 +57,7 @@ const Sidebar: FC<SidebarProps> = async ({ projectId }) => {
 
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="ghost" className="text-indigo-900">
+          <Button variant="ghost" className="text-indigo-900 w-full">
             + Add New Project
           </Button>
         </DialogTrigger>
@@ -70,7 +70,7 @@ const Sidebar: FC<SidebarProps> = async ({ projectId }) => {
           </DialogHeader>
           <form action={createNewProject} className="space-y-2">
             <Label htmlFor="new-project-name">Project Name</Label>
-            <Input id="new-project-name" name="new-project-name" />
+            <Input id="new-project-name" name="new-project-name" required />
             <DialogFooter>
               <DialogClose asChild>
                 <Button
@@ -93,14 +93,6 @@ const Sidebar: FC<SidebarProps> = async ({ projectId }) => {
         </DialogContent>
       </Dialog>
     </div>
-  );
-};
-
-const ProjectInput = () => {
-  return (
-    <form action="">
-      <input type="text" name="project-input" id="project-input" />
-    </form>
   );
 };
 

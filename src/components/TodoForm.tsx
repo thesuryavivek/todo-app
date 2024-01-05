@@ -48,6 +48,8 @@ const TodoForm: FC<TodoFormProps> = ({
   setTodo,
   endPoint,
 }) => {
+  const [todoTextErr, setTodoTextErr] = useState(false);
+
   const { todoText, startDate, endDate, todoStatus, todoId } = todo;
 
   const setTodoText = (txt: string) => {
@@ -92,6 +94,14 @@ const TodoForm: FC<TodoFormProps> = ({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (todoText.trim() === "") {
+      setTodoTextErr(true);
+      return;
+    } else {
+      setTodoTextErr(false);
+    }
+
     setLoading(true);
 
     let reqBody;
@@ -143,13 +153,21 @@ const TodoForm: FC<TodoFormProps> = ({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <Label htmlFor="task-name">Name of the Task</Label>
-      <Input
-        id="task-name"
-        name="task-name"
-        value={todoText}
-        onChange={(e) => setTodoText(e.target.value)}
-      />
+      <div>
+        <Label htmlFor="task-name">Name of the Task</Label>
+        <Input
+          id="task-name"
+          name="task-name"
+          required
+          value={todoText}
+          onChange={(e) => setTodoText(e.target.value)}
+        />
+        {todoTextErr && (
+          <p className="text-red-400 text-xs px-1">
+            Please fill the task name.
+          </p>
+        )}
+      </div>
       <div className="flex gap-4">
         <div className="space-y-2 w-1/2">
           <Label>Start Date</Label>
@@ -230,7 +248,7 @@ const TodoForm: FC<TodoFormProps> = ({
             variant={"default"}
             className="space-x-2 bg-blue-600 text-zinc-50 hover:bg-blue-700"
           >
-            <span>Add</span>
+            <span>Submit</span>
             {loading && <Loading />}
           </Button>
         </div>
