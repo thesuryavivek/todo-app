@@ -6,7 +6,6 @@ import {
   DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import type { Status } from "@prisma/client";
 import { FC, useState } from "react";
 import TodoForm from "./TodoForm";
 
@@ -17,20 +16,36 @@ const formatDate = (date: Date) => {
   return `${day}/${month}/${year}`;
 };
 
+type TodoStatus = "none" | "Progress" | "Review" | "Completed";
+
+interface Todo {
+  todoId?: string;
+  todoText: string;
+  startDate: Date;
+  endDate: Date;
+  todoStatus: TodoStatus;
+}
+
 interface TodoViewProps {
   todo: {
     id: string;
     text: string;
     startDate: Date;
     endDate: Date;
-    status: Status;
+    status: TodoStatus;
     projectId: string;
   };
   className: string;
 }
 
 const TodoView: FC<TodoViewProps> = ({ todo, className }) => {
-  // const [editedTodo, setEditedTodo] = useState(todo);
+  const [editedTodo, setEditedTodo] = useState<Todo>({
+    todoId: todo.id,
+    todoText: todo.text,
+    startDate: todo.startDate,
+    endDate: todo.endDate,
+    todoStatus: todo.status,
+  });
   // const { setStartDate, setEndDate } = useTodoStore();
   const [open, setOpen] = useState(false);
 
@@ -57,7 +72,13 @@ const TodoView: FC<TodoViewProps> = ({ todo, className }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>Edit Task</DialogHeader>
-        <TodoForm projectId={todo.projectId} setOpen={setOpen} />
+        <TodoForm
+          projectId={todo.projectId}
+          setOpen={setOpen}
+          todo={editedTodo}
+          setTodo={setEditedTodo}
+          endPoint="editTodo"
+        />
       </DialogContent>
     </Dialog>
   );

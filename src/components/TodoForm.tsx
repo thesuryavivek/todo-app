@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useTodoStore } from "@/utils/zustand";
 import { ChevronDown, Circle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import {
@@ -23,22 +22,65 @@ import {
   type SetStateAction,
 } from "react";
 
+type TodoStatus = "none" | "Progress" | "Review" | "Completed";
+
+interface Todo {
+  todoId?: string;
+  todoText: string;
+  startDate: Date;
+  endDate: Date;
+  todoStatus: TodoStatus;
+}
+
 interface TodoFormProps {
   projectId: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  todo: Todo;
+  setTodo: Dispatch<SetStateAction<Todo>>;
+  endPoint: "createTodo" | "editTodo";
 }
 
-const TodoForm: FC<TodoFormProps> = ({ projectId, setOpen }) => {
-  const {
-    todoStatus,
-    setTodoStatus,
-    startDate,
-    setStartDate,
-    endDate,
-    setEndDate,
-    todoText,
-    setTodoText,
-  } = useTodoStore();
+const TodoForm: FC<TodoFormProps> = ({
+  projectId,
+  setOpen,
+  todo,
+  setTodo,
+  endPoint,
+}) => {
+  const { todoText, startDate, endDate, todoStatus, todoId } = todo;
+
+  const setTodoText = (txt: string) => {
+    setTodo((oldTodo) => ({
+      ...oldTodo,
+      todoText: txt,
+    }));
+  };
+
+  const setStartDate = (date: Date | undefined) => {
+    if (!date) return;
+
+    setTodo((oldTodo) => ({
+      ...oldTodo,
+      startDate: date,
+    }));
+  };
+
+  const setEndDate = (date: Date | undefined) => {
+    if (!date) return;
+
+    setTodo((oldTodo) => ({
+      ...oldTodo,
+      endDate: date,
+    }));
+  };
+
+  const setTodoStatus = (status: string) => {
+    let sts = status as TodoStatus;
+    setTodo((oldTodo) => ({
+      ...oldTodo,
+      todoStatus: sts,
+    }));
+  };
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -51,9 +93,10 @@ const TodoForm: FC<TodoFormProps> = ({ projectId, setOpen }) => {
     e.preventDefault();
     setLoading(true);
 
-    const res = await fetch("/api/createTodo", {
-      method: "POST",
-      body: JSON.stringify({
+    let reqBody;
+
+    if (endPoint === "createTodo") {
+      reqBody = JSON.stringify({
         todoText,
         todoStatus:
           todoStatus !== "none"
@@ -62,7 +105,26 @@ const TodoForm: FC<TodoFormProps> = ({ projectId, setOpen }) => {
         projectId,
         startDate,
         endDate,
-      }),
+      });
+    }
+
+    if (endPoint === "editTodo") {
+      reqBody = JSON.stringify({
+        todoId,
+        todoText,
+        todoStatus:
+          todoStatus !== "none"
+            ? capitalizeFirstLetter(todoStatus)
+            : todoStatus,
+        projectId,
+        startDate,
+        endDate,
+      });
+    }
+
+    const res = await fetch(`/api/${endPoint}`, {
+      method: "POST",
+      body: reqBody,
     });
 
     const data = await res.json();

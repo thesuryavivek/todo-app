@@ -15,8 +15,21 @@ interface CreateTodoProps {
   projectId: string;
 }
 
+interface Todo {
+  todoText: string;
+  startDate: Date;
+  endDate: Date;
+  todoStatus: "none" | "Progress" | "Review" | "Completed";
+}
+
 const CreateTodo: FC<CreateTodoProps> = ({ className, projectId }) => {
   const [open, setOpen] = useState(false);
+  const [todo, setTodo] = useState<Todo>({
+    todoText: "",
+    startDate: new Date(),
+    endDate: new Date(),
+    todoStatus: "none",
+  });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -31,7 +44,13 @@ const CreateTodo: FC<CreateTodoProps> = ({ className, projectId }) => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>Add new task</DialogHeader>
-        <TodoForm projectId={projectId} setOpen={setOpen} />
+        <TodoForm
+          projectId={projectId}
+          setOpen={setOpen}
+          todo={todo}
+          setTodo={setTodo}
+          endPoint="createTodo"
+        />
       </DialogContent>
     </Dialog>
   );

@@ -1,7 +1,6 @@
 import prisma from "@/utils/prisma";
 
 export async function POST(req: Request) {
-  // console.log(req.body);
   const request = await req.json();
 
   const newTodo = await prisma.todo.create({
