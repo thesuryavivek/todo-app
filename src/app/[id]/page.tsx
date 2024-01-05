@@ -10,8 +10,11 @@ const Page = ({ params }: { params: { id: string } }) => {
       {/* My Post: {params.id} */}
 
       <Column projectId={params.id} status="none" />
+      <span className="w-px h-5/6 place-self-center bg-zinc-300/90 relative before:content-[''] before:absolute before:h-2 before:w-2 before:top-0 before:right-0 before:translate-x-1/2 before:rounded-full before:bg-zinc-300/90 after:content-[''] after:absolute after:h-2 after:w-2 after:bottom-0 after:right-0 after:translate-x-1/2 after:rounded-full after:bg-zinc-300/90" />
       <Column projectId={params.id} status="Progress" />
+      <span className="w-px h-5/6 place-self-center bg-zinc-300/90 relative before:content-[''] before:absolute before:h-2 before:w-2 before:top-0 before:right-0 before:translate-x-1/2 before:rounded-full before:bg-zinc-300/90 after:content-[''] after:absolute after:h-2 after:w-2 after:bottom-0 after:right-0 after:translate-x-1/2 after:rounded-full after:bg-zinc-300/90" />
       <Column projectId={params.id} status="Review" />
+      <span className="w-px h-5/6 place-self-center bg-zinc-300/90 relative before:content-[''] before:absolute before:h-2 before:w-2 before:top-0 before:right-0 before:translate-x-1/2 before:rounded-full before:bg-zinc-300/90 after:content-[''] after:absolute after:h-2 after:w-2 after:bottom-0 after:right-0 after:translate-x-1/2 after:rounded-full after:bg-zinc-300/90" />
       <Column projectId={params.id} status="Completed" />
     </div>
   );
